@@ -1,42 +1,46 @@
 
 
-		
+		/*
+		*
+		* Currently nesting the Darksky API call and Geocoder inside this async Navigator callback as both
+		* depend on the position data -- need to look into if chaining / using jQuery deferred maybe preferential
+		*
+		*/
+
       	if(navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(function(position) {
 
+
+                /*
+				*	grab the lat, long from the async navigator interface position object 
+				*	and feed into google maps' geolocate object
+				*/
                   var lat = position.coords.latitude, 
                   	  long = position.coords.longitude,
+                  	  coords = lat + "," + long,
                       geocoder = new google.maps.Geocoder(),      
                   	  geolocate = new google.maps.LatLng(lat, long);
 
 
-
-                  
-
+                  /* 
+                  *
+                  * Use the geocode method to convert our Geolocate object into a specific location
+                  *
+                  */ 
                   geocoder.geocode({'latLng': geolocate}, function(results, status) {
                     if (status == google.maps.GeocoderStatus.OK) {
-                       var result;
+                     
 
+                       var city = results[4].address_components[0].long_name,
+                           state = results[4].address_components[1].long_name;
 
-                       if (results.length > 1) {
-                         result = results[1];
-                       } else {
-                         result = results[0];
-                       }
-                       console.log(results);
-                         console.log(result);
+                           console.log(city);
+                           console.log(state);
 
-                       
-                       var city = result.address_components[2].long_name,
-                           state = result.address_components[3].long_name;
-
-                     }  
-                  });    
-
+                     	}  
+                  	});    
 
                 var api_key = 'ee2ac15f04e14b6646dc6508f06d7532';
-				var coords = lat + "," + long;
-			// var coordinates  = '38.9071,-77.0368';
 
 				$.ajax({
 					  url: "https://api.darksky.net/forecast/" + api_key + "/" + coords,
@@ -46,7 +50,6 @@
 					  	console.log(data);
 					  	$("body").append("<div>" + data.currently.temperature + "</div>");
 					  		  	$("body").append("<div>" + data.currently.summary + "</div>");
-
 
 
 
@@ -62,6 +65,23 @@
 
 
                 }
+
+
+               var word = "orange";
+
+
+        $.get(
+    'https://de.wikipedia.org/w/api.php?action=parse&format=json&prop=text&section=0&page=' + word + '&callback=?',
+    function (response) {
+        var resp = $.parseJSON(response);
+        var text = resp.parse.text['*'];
+        re = /img.*?src="(.*?)"/g
+        while( match = re.exec(text)) { 
+        	console.log("wikie");
+        	console.log(response);
+           console.log(match[1]); 
+        }
+});
 
 
 
