@@ -1,12 +1,22 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import $ from 'jquery';
-import styles from '/Users/Rekha/Dev/react_project/public/scripts/styles.css.js';
+import styles from '/Users/Rekha/Dev/weather_app/public/scripts/styles.css.js';
+import mainstyles from '/Users/Rekha/Dev/weather_app/public/stylesheets/styles.css'
+
+const container = document.getElementById("container");
+
+const mainPage =(
+		<div style={styles.holder}>	
+			</div>
+					);
+
+ReactDOM.render(mainPage,container);
 
 
 class Location extends React.Component{
 	render(){
-	 return <div> {this.props.place} </div>
+	 return <div style={styles.location}> {this.props.place} </div>
 	}
 }
 
@@ -110,38 +120,49 @@ $.when(getLocation()).then(function(data){
 		 long = data.coords.longitude,
 		 coords = lat + "," + long,
 		 geolocate = new google.maps.LatLng(lat, long);
-
-	 $.when(getWeather(coords), geoCode(geolocate)).done(function(weather, location){
-	 		 	console.log("we're trying");
-	 			console.log(weather);
-	 			console.log(location);
-
+/*
+*
+* right now this is nested to preserve scope of the 
+*
+*/
+		 $.when(getWeather(coords), geoCode(geolocate)).done(function(weather, location){
 			buildPage(location.formatted_address, weather[0].currently.temperature, weather[0].currently.summary)
-
 		 })
-	});
+
+})
 
 
 
-const buildPage = (loc, deg, summ) => {
 
-console.log("deg");
-console.log(deg);
+const buildPage = (loc = false, deg = false, summ = false) =>{ 
 
-var page = (<div style={styles.holder}>
-         		<Location style={styles.location} place={loc}/>
-         		<Temperature style={styles.temperature} temp={deg}/>
-         		<Summary style={styles.summary} desc={summ}/>
-                </div>
+
+const pageTwo = (<div style={styles.holder}>
+	        <Location place={loc}></Location>
+            </div>
+            );
+
+const pageOne = (<div style={styles.holder}>
+            </div>
+            );
+
+const pageThree = (<div style={styles.holder}>
+	        <Location place={loc}></Location>
+         	<Temperature temp={deg}></Temperature>
+         	<Summary desc={summ}></Summary>
+            </div>
   );
 
 
-let container = document.getElementById("container");
- 
-ReactDOM.render(page,container);
-
+	if(loc && !deg && !summ){
+		ReactDOM.render(pageTwo,container);
+	} else if (loc && deg && summ){
+		ReactDOM.render(pageThree,container);
+	} else { 
+		ReactDOM.render(pageOne,container);
+	} 
 }
 
-	
+
 
 
