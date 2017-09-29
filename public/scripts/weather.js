@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import $ from 'jquery';
 import styles from '/Users/Rekha/Dev/weather_app/public/scripts/styles.css.js';
+import { api_key } from '../../api_config.js';
 
 import Loader from 'react-loader-advanced';
 
@@ -25,7 +26,6 @@ export class Weather extends React.Component{
 
 
 	getWeather(coords){
-	       const api_key = 'ee2ac15f04e14b6646dc6508f06d7532';
 
 			return $.ajax({
 					  url: "https://api.darksky.net/forecast/" + api_key + "/" + coords,
@@ -74,8 +74,6 @@ class Summary extends React.Component{
 		this.state = {text: this.props.text};
 
 	}
-
-
 	render(){
 		return(<div> {this.state.text }</div>)
 	}

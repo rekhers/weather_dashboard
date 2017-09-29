@@ -24,9 +24,9 @@ export class Location extends React.Component{
 
 	}
 
-	/* 
+/* 
 *
-* Create a geocode object and translate our geolocate object into a specific location
+* Create a geocode object and translate our geolocate object into a specific location with the google maps API
 *
 */ 
 	geoCode(geolocate_coords){

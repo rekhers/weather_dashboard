@@ -8,24 +8,35 @@ import { Weather } from '../scripts/weather.js';
 import { Location } from '../scripts/location.js';
 
 
-
+/*
+*
+* This top level container component gets the browser's coordinates from the Navigator utility as a deferred object.
+* The children components take the coordinates as props and each return deferred objects in order to get the weather data
+* and geocoded location text
+*
+*
+*/
 class WeatherContainer extends React.Component{
 
 
  	constructor(props){
  		super(props)
  		this.state = {coords: '', geoLocate: ''}
+ 		this.styles ={
+ 			height: "100%",
+ 			width: "100%"
+ 		}
  	}
 
  	componentDidMount(){
- 				var that = this;
+ 		var that = this;
 
  		$.when(this.getLocation()).then(function(data){
 			console.log("data")
 		 	console.log(data)
 
 		 //decide on a type?!
-		const lat = data.coords.latitude, 
+		 const lat = data.coords.latitude, 
 		 long = data.coords.longitude,
 		 coords = lat + "," + long,
 		 geolocate = new google.maps.LatLng(lat, long);
@@ -52,18 +63,17 @@ class WeatherContainer extends React.Component{
 	render(){
 
 			if(this.state.coords && this.state.geoLocate){
- 
 			 	return (
 			 		<div>
-			 		<Weather coords={this.state.coords}/>
-			 		<Location geolocate={this.state.geoLocate}/>
+				 		<Weather coords={this.state.coords}/>
+				 		<Location geolocate={this.state.geoLocate}/>
 			 		</div>
 			 		)
 			 } 
 			 	return (
 			 	<Loader show={true} message={''}>
 
-			 		<div> top level </div>
+			 		<div style={this.styles}> top level </div>
 
 			 		</Loader>
 			 		)
