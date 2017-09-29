@@ -36714,7 +36714,7 @@ var WeatherContainer = function (_React$Component) {
 			}
 			return _react2.default.createElement(
 				_reactLoaderAdvanced2.default,
-				{ show: true, message: '' },
+				{ show: true, message: '', backgroundStyle: { backgroundColor: 'black' } },
 				_react2.default.createElement(
 					'div',
 					{ style: this.styles },
@@ -36776,6 +36776,12 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+/*
+*
+* This weather class receives coordinates from its parent container 
+* and gets weather data from the DarkSky API
+*
+*/
 var Weather = exports.Weather = function (_React$Component) {
 	_inherits(Weather, _React$Component);
 
@@ -36787,6 +36793,11 @@ var Weather = exports.Weather = function (_React$Component) {
 		console.log("props in weather");
 		console.log(props);
 		_this.state = { coords: _this.props.coords };
+		_this.styles = {
+			height: "100%",
+			width: "100%"
+
+		};
 		return _this;
 	}
 
@@ -36822,11 +36833,11 @@ var Weather = exports.Weather = function (_React$Component) {
 			} else {
 				return _react2.default.createElement(
 					_reactLoaderAdvanced2.default,
-					{ show: true, message: '' },
+					{ show: true, message: '', backgroundStyle: { backgroundColor: 'black' } },
 					_react2.default.createElement(
 						'div',
-						null,
-						' loading.. '
+						{ style: this.styles },
+						'  '
 					)
 				);
 			}
@@ -36845,6 +36856,11 @@ var Temperature = function (_React$Component2) {
 		var _this2 = _possibleConstructorReturn(this, (Temperature.__proto__ || Object.getPrototypeOf(Temperature)).call(this, props));
 
 		_this2.state = { degrees: _this2.props.degrees };
+		_this2.styles = {
+			fontSize: "3rem",
+			fontFamily: "Roboto"
+		};
+
 		return _this2;
 	}
 
@@ -36853,7 +36869,7 @@ var Temperature = function (_React$Component2) {
 		value: function render() {
 			return _react2.default.createElement(
 				'div',
-				null,
+				{ style: this.styles },
 				' ',
 				this.state.degrees
 			);
@@ -36872,6 +36888,10 @@ var Summary = function (_React$Component3) {
 		var _this3 = _possibleConstructorReturn(this, (Summary.__proto__ || Object.getPrototypeOf(Summary)).call(this, props));
 
 		_this3.state = { text: _this3.props.text };
+		_this3.styles = {
+			fontSize: "1rem",
+			fontFamily: "Roboto"
+		};
 
 		return _this3;
 	}
@@ -36881,7 +36901,7 @@ var Summary = function (_React$Component3) {
 		value: function render() {
 			return _react2.default.createElement(
 				'div',
-				null,
+				{ style: this.styles },
 				' ',
 				this.state.text
 			);
@@ -36943,6 +36963,11 @@ var Location = exports.Location = function (_React$Component) {
 
 		console.log(props);
 		_this.state = { geolocate: _this.props.geolocate };
+		_this.styles = {
+			height: "100%",
+			width: "100%",
+			position: "absolute"
+		};
 		return _this;
 	}
 
@@ -37000,11 +37025,11 @@ var Location = exports.Location = function (_React$Component) {
 			} else {
 				return _react2.default.createElement(
 					_reactLoaderAdvanced2.default,
-					{ show: true, message: '' },
+					{ show: true, message: '', backgroundStyle: { backgroundColor: 'black' } },
 					_react2.default.createElement(
 						'div',
-						null,
-						' loading.. '
+						{ style: this.styles },
+						' '
 					)
 				);
 			}

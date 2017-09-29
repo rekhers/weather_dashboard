@@ -10,6 +10,11 @@ export class Location extends React.Component{
 		super(props);
 		console.log(props);
 		this.state = {geolocate: this.props.geolocate}
+			this.styles ={
+ 			height: "100%",
+ 			width: "100%",
+ 			position: "absolute"
+ 		}
 	}
 
 
@@ -62,8 +67,8 @@ export class Location extends React.Component{
 			)
 		}else {
 			 	return (
-			 		<Loader show={true} message={''}>
-			 		<div> loading.. </div>
+			 		<Loader show={true} message={''}  backgroundStyle={{backgroundColor: 'black'}}>
+			 		<div style={this.styles}> </div>
 			 		</Loader>
 			 		)
 			 }

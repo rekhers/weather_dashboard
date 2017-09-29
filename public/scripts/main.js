@@ -71,7 +71,7 @@ class WeatherContainer extends React.Component{
 			 		)
 			 } 
 			 	return (
-			 	<Loader show={true} message={''}>
+			 	<Loader show={true} message={''}  backgroundStyle={{backgroundColor: 'black'}}>
 
 			 		<div style={this.styles}> top level </div>
 
